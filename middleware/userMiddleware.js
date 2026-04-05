@@ -11,20 +11,24 @@ const generateJwt = (payload) => {
 
 export const registerUsers = async (req, res) => {
 
-    const { name = undefined, email = undefined, password = undefined, role = undefined, status = undefined } = req.body
+    let { name = "", email = "", password = "", role = "", status = "" } = req.body
 
+    name = name.trim()
+    email = email.trim().toLowerCase()
+    password = password.trim()
+    role = role.trim()
+    status = status.trim()
 
-
-    if (!name && !email && !password && !role && !status) {
+    if (name === "" && email === "" && password === "" && role === "" && status === "") {
         return res.status(400).json({ error: "Required fields missing" })
     }
 
-    if (!name) {
+    if (!name || name === "") {
         return res.status(400).json({ error: "Name is required" })
     }
 
 
-    if (!email) {
+    if (!email || email === "") {
         return res.status(400).json({ error: "Email is required" })
     }
 
@@ -33,11 +37,11 @@ export const registerUsers = async (req, res) => {
 
     }
 
-    if (!password) {
+    if (!password || password === "") {
         return res.status(400).json({ error: "Password is required" })
     }
 
-    if (!role) {
+    if (!role || role === "") {
         return res.status(400).json({ error: "Role is required" })
     }
 
@@ -47,7 +51,7 @@ export const registerUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid Role" })
     }
 
-    if (!status) {
+    if (!status || status === "") {
         return res.status(400).json({ error: "Status is required" })
     }
 
@@ -56,7 +60,7 @@ export const registerUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid status" })
     }
 
-    if (password.length < 5) {
+    if (password.length < 6) {
         return res.status(400).json({ error: "Password must be at least 6 characters" })
 
     }
@@ -94,14 +98,15 @@ export const registerUsers = async (req, res) => {
 
 export const loginUsers = async (req, res) => {
 
-    const { email = undefined, password = undefined } = req.body
-
+    let { email = "", password = "" } = req.body
+    email = email.trim().toLowerCase()
+    password = password.trim()
 
     if (!email && !password) {
         return res.status(400).json({ error: "Required fields missing" })
     }
 
-    if (!email) {
+    if (!email || email === "") {
         return res.status(400).json({ error: "Email is required" })
     }
 
@@ -109,7 +114,7 @@ export const loginUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid email format" })
     }
 
-    if (!password) {
+    if (!password || password === "") {
         return res.status(400).json({ error: "Password is required" })
     }
 
@@ -117,6 +122,9 @@ export const loginUsers = async (req, res) => {
 
     if (!isUser) {
         return res.status(400).json({ error: "User not found" })
+    }
+    if (isUser.status === "inactive") {
+        return res.status(400).json({ error: "User inactive" })
     }
 
     const isTruePassword = await bcrypt.compare(password, isUser.password)
@@ -126,7 +134,7 @@ export const loginUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid credentials" })
     }
 
-    const jwtToken = generateJwt({ email })
+    const jwtToken = generateJwt({ email: isUser.email, userId: isUser._id, role: isUser.role })
 
     return res.status(200).json({
         "jwt_token": jwtToken

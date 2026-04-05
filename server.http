@@ -240,258 +240,215 @@ Content-Type:application/json
 
 
 ### 2. Financial Records Management
-/*/
-Creating records
-Viewing records
-Updating records
-Deleting records
-Filtering records based on criteria such as date, category, or type
-categories like Salary , food , Travel
-/*/
 
-### Admin: Can create, update, and manage records and users
+### API 1 Create Record with Admin -- completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type: application/json
 
-
-### API 20 Get All users  with Admin JWT TOKEN  -completed
-GET http://localhost:5000/api/finance/users
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
-
-
-
-### API 21 Get All users  with Admin Without JWT TOKEN -completed
-POST http://localhost:5000/api/finance/users
-
-
-
-### API 22 Get All users  with Admin Invalid JWT TOKEN - completed
-POST http://localhost:5000/api/finance/users
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW
-
-### API 23 Get All users  with Non - Admin JWT TOKEN  -completed
-POST http://localhost:5000/api/finance/users
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9W1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
-
-
-
-/*/
-
-I used Sample Data 
-[
-  {
-    "name": "Rahul Sharma",
-    "email": "rahul.sharma01@gmail.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Sneha Reddy",
-    "email": "sneha.reddy02@yahoo.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Arjun Verma",
-    "email": "arjun.verma03@outlook.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Kiran Kumar",
-    "email": "kiran.kumar04@gmail.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Meena Iyer",
-    "email": "meena.iyer05@yahoo.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Vikas Singh",
-    "email": "vikas.singh06@outlook.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Pooja Nair",
-    "email": "pooja.nair07@gmail.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Rohit Gupta",
-    "email": "rohit.gupta08@yahoo.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Anita Desai",
-    "email": "anita.desai09@outlook.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Deepak Yadav",
-    "email": "deepak.yadav10@gmail.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Swathi Rao",
-    "email": "swathi.rao11@yahoo.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Manoj Kumar",
-    "email": "manoj.kumar12@outlook.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Kavya Reddy",
-    "email": "kavya.reddy13@gmail.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Suresh Babu",
-    "email": "suresh.babu14@yahoo.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Divya Sharma",
-    "email": "divya.sharma15@outlook.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Naresh Patel",
-    "email": "naresh.patel16@gmail.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Anjali Singh",
-    "email": "anjali.singh17@yahoo.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Ravi Teja",
-    "email": "ravi.teja18@outlook.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Lakshmi Devi",
-    "email": "lakshmi.devi19@gmail.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Gopal Krishna",
-    "email": "gopal.krishna20@yahoo.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Keerthi Rani",
-    "email": "keerthi.rani21@outlook.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Praveen Kumar",
-    "email": "praveen.kumar22@gmail.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Sindhu Priya",
-    "email": "sindhu.priya23@yahoo.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  },
-  {
-    "name": "Teja Reddy",
-    "email": "teja.reddy24@outlook.com",
-    "password": "premkumar45",
-    "role": "VIEWER",
-    "status": "active"
-  },
-  {
-    "name": "Harish Kumar",
-    "email": "harish.kumar25@gmail.com",
-    "password": "premkumar45",
-    "role": "ANALYST",
-    "status": "active"
-  }
-]
-
-/*/
-
-
-
-### API 24 Get User userId  with Admin JWT TOKEN -completed
-GET http://localhost:5000/api/finance/users/69d25ce4ac80a5bd428951c5
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
-
-
-### API 25 Get User userId  without  Admin JWT TOKEN  --completed
-GET http://localhost:5000/api/finance/users/69d25ce4ac80a5bd428951c5
-
-
-
-
-### API 26 Update User Role with  userId  --   Admin JWT TOKEN  --completed 
-POST http://localhost:5000/api/finance/users/69d25ce4ac80a5bd428951c5
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
-Content-Type:application/json
 {
-  "role":"ANALYST"
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "SALARY",
+  "description": "Monthly salary"
+}
+
+### API 2 Create Record Invalid Admin JWT TOKEN --completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI
+
+{
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "SALARY",
+  "description": "Monthly salary"
+}
+
+### API 3 Create  record with Admin -- Missing Amount -- completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type: application/json
+
+{
+  
+  "type": "INCOME",
+  "category": "SALARY",
+  "description": "Monthly salary"
+}
+
+
+### API 4 Create  record with Admin -- Missing Type --completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type: application/json
+
+{
+  
+  "amount": 5000,
+  "category": "SALARY",
+  "description": "Monthly salary"
 }
 
 
 
-### API 27 Update User Status with  userId  --   Admin JWT TOKEN -completed
-POST http://localhost:5000/api/finance/users/69d25ce4ac80a5bd428951c5/inactive
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
-Content-Type:application/json
+### API 5 Create  record with Admin -- Missing Category --completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type: application/json
 
 {
-  "status":"inactive"
+  "amount": 5000,
+  "type": "INCOME",
+  "description": "Monthly salary"
+}
+
+### API 6 Create  record with Admin -- Missing Description --completed
+http://localhost:5000/api/finance/create-record
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type: application/json
+
+{
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "SALARY"
+}
+
+
+
+
+### API 7 View All Records -completed
+GET http://localhost:5000/api/finance/records
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+### API 8 View All Records Missing Token  --completed
+GET http://localhost:5000/api/finance/records
+
+
+
+### API 9 View All Records Invalid Token  -completed
+GET http://localhost:5000/api/finance/records
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+
+### API 10 Sigle View Record with record Id  Can view Admin & Analyst  -completed
+GET http://localhost:5000/api/finance/record/69d28f8d5da49ab2d36a0524
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+### API 11 Sigle View Record with Invalid record Id  Can view Admin & Analyst  -completed
+GET http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+### API 12 Sigle View Record with record Id without JWT TOKEN -completed
+GET http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+
+
+
+
+### API 13 Sigle View Record with record id with Viewer get Failed -completed
+GET http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+
+
+### API 14 Record Update with record Id  - Only Admin  --completed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+### API 15 Record Update with record Id  - Only Admin  --completed-Without Jwt Failed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+
+
+/*/
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "SALARY",
+  "description": "Monthly salary"
+/*/
+
+
+### API 16 Record Update Amount with record Id   - Only Admin  --completed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type:application/json
+{
+  "amount":6000
+}
+
+
+
+### API 17 Record Update Type with record Id   - Only Admin  --completed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type:application/json
+{
+ "type": "EXPENSE"
+}
+
+
+
+### API 18 Record Update Category with record Id   - Only Admin  --completed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type:application/json
+{"category": "SALARY"
+}
+
+
+### API 18 Record Update Description with record Id   - Only Admin  --completed
+PUT http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+Content-Type:application/json
+{
+  "description": "Monthly salary"
+
 }
 
 
 
 
 
-### API 28 Delete User with  userId  --   Admin JWT TOKEN -completed
-DELETE http://localhost:5000/api/finance/users/69d25ce4ac80a5bd428951c5
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByZW1rdW1hcmpwNDVAZ21haWwuY29tIiwiaWF0IjoxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+### API 19 Delete Record -- Only Admin 
+DELETE http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+
+### API 20 Delete Record -- Only Admin - Without JWT TOKEN  
+DELETE http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+
+
+
+### API 21 Delete Record -- Only Admin  - Invalid JWT Token 
+DELETE http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs
+
+
+
+### API 22 Delete Record -- Only Admin - Non Admin Access 
+DELETE http://localhost:5000/api/finance/record/69d28f8d5da49ab2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+
+
+### API 23 Filter Records Type -- Only Admin
+GET http://localhost:5000/api/finance/filter-records?type=INCOME
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+
+### API 24 Filter Records Category -- Only Admin
+GET http://localhost:5000/api/finance/filter-records?category=FOOD
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+
+### API 24 Filter Records startDate && endDate -- Only Admin
+GET http://localhost:5000/api/finance/filter-records?startDate&endDate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.oxNzc1Mzg3NjE3fQ.DOhd5EbajLGCUrp8C25coj4W8U4_hH1KMn-7ZxKUFRA
+
+

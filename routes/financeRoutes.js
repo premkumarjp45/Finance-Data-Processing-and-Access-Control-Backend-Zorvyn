@@ -1,12 +1,17 @@
 import express from "express"
-import { createRecord, getAllUsers, getSingleUser, updateUserRoleAndStatus, deleteUser } from "../middleware/financeRecordsMiddleware.js"
-import authAdmin from "../middleware/authAdmin.js"
+import { createFinanceRecord, getAllRecords, getSingleRecord, updateRecord, deleteRecord, filterRecords } from "../middleware/financeRecordsMiddleware.js"
+import { authAdmin, authViewer, authAdminAndAnalyst } from "../middleware/authAdmin.js"
 const financeRouter = express.Router()
 
-financeRouter.get("/users", authAdmin, getAllUsers)
-financeRouter.get("/users/:userId", authAdmin, getSingleUser)
-financeRouter.post("/users/:userId", authAdmin, updateUserRoleAndStatus)
-financeRouter.delete("/users/:userId", authAdmin, deleteUser)
-financeRouter.post("/create-record", createRecord)
+
+financeRouter.post("/create-record", authAdmin, createFinanceRecord)
+financeRouter.get("/records", authViewer, getAllRecords)
+financeRouter.get("/record/:recordId", authAdminAndAnalyst, getSingleRecord)
+financeRouter.put("/record/:recordId", authAdmin, updateRecord)
+financeRouter.delete("/record/:recordId", authAdmin, deleteRecord)
+financeRouter.get("/filter-records", authAdmin, filterRecords)
+
+
+
 
 export default financeRouter

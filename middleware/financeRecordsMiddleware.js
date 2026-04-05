@@ -1,100 +1,172 @@
-import User from "../models/user.js"
+import Finance from "../models/finance.js"
 
 
-export const getAllUsers = async (req, res) => {
 
-    const email = req.email
-    //console.log(email)
 
-    const isAdmin = await User.findOne({ email: email })
 
-    if (!isAdmin.role === "ADMIN") {
-        return res.status(403).json({ error: "Access denied. Admin only" })
+
+export const createFinanceRecord = async (req, res) => {
+
+
+    const { amount = undefined, type = undefined, category = undefined, description = undefined } = req.body
+    const user = req.user
+    const { userId } = user
+
+    if (!amount && !type && !category && !description) {
+        return res.status(400).json({ error: "Required fields missing" })
     }
-    const allUsersData = await User.find({})
-    const filteredData = allUsersData.filter((item) => item.role !== "ADMIN")
-    res.status(200).json({ users: filteredData })
-}
-
-
-
-export const getSingleUser = async (req, res) => {
-    const { userId } = req.params
-
-    const isUser = await User.findOne({ _id: userId })
-
-    if (!isUser) {
-        return res.status(400).json({ error: "User not found" })
+    if (!amount) {
+        return res.status(400).json({ error: "Required amount" })
+    }
+    else if (!type) {
+        return res.status(400).json({ error: "Required type" })
+    } else if (!category) {
+        return res.status(400).json({ error: "Required category" })
+    } else if (!description) {
+        return res.status(400).json({ error: "Required description" })
+    } else if (!["INCOME", "EXPENSE"].includes(type)) {
+        return res.status(400).json({ error: "Invalid type" })
+    } else if (amount < 0) {
+        return res.status(400).json({ error: "Amount must be > 0" })
     }
 
-    const { name, email, role, status } = isUser
-
-    return res.status(200).json({
-        name, email, role, status
+    const newRecord = Finance({
+        amount: amount,
+        type: type,
+        category: category,
+        description: description,
+        userId: userId
     })
+    await newRecord.save()
 
+    return res.status(200).json({ message: "Create finance record" })
 }
 
 
-export const updateUserRoleAndStatus = async (req, res) => {
-    const { userId } = req.params
-    const { role = undefined, status = undefined } = req.body
-    console.log(role)
-    const isUser = await User.findOne({ _id: userId })
 
-    if (!isUser) {
-        return res.status(400).json({ error: "User not found" })
+
+export const getAllRecords = async (req, res) => {
+    try {
+
+
+        const getAllRecords = await Finance.find({})
+
+        const filteredRecords = getAllRecords.map((item) => ({
+            id: item._id,
+            amount: item.amount,
+            type: item.type,
+            category: item.category,
+            description: item.description
+
+        }))
+        return res.status(200).json({ records: filteredRecords })
+
+    } catch (e) {
+        return res.status(400).json({ error: e.message })
     }
-    if (role) {
-        const roles = ["ADMIN", "ANALYST", "VIEWER"];
+}
 
+export const getSingleRecord = async (req, res) => {
+    try {
 
-        if (!roles.includes(role)) {
-            return res.status(400).json({ error: "Invalid Role" })
+        const { recordId } = req.params
+        const isRecord = await Finance.findOne({ _id: recordId })
+
+        if (!isRecord) {
+            return res.status(400).json({ error: "Record not found" })
         }
-        await User.updateOne({ _id: userId }, { $set: { role: role } })
-        return res.status(200).json({ message: "User role updated." })
+        return res.status(200).json({
+            id: isRecord._id,
+            amount: isRecord.amount,
+            type: isRecord.type,
+            category: isRecord.category,
+            description: isRecord.description
+        })
+    } catch (e) {
+        return res.status(400).json({ error: "Invalid record id" })
+    }
+}
 
 
-    } else {
-        const lists = ["active", "inactive"];
 
 
-        if (!lists.includes(status)) {
-            return res.status(400).json({ error: "Invalid Status" })
+export const updateRecord = async (req, res) => {
+
+
+    const { recordId } = req.params
+    const isRecord = await Finance.findOne({ _id: recordId })
+
+    if (!isRecord) {
+        return res.status(400).json({ error: "Record not Found" })
+    }
+    const { amount = undefined, type = undefined, category = undefined, description = undefined } = req.body
+    if (!amount && !type && !category && !description) {
+        return res.status(400).json({ error: "Required fields missing" })
+    }
+    else if (amount) {
+        await Finance.UpdateOne({ _id: recordId }, { $set: { amount: amount } })
+        return res.status(200).json({ success: "Record updated amount successfully" })
+    } else if (type) {
+        if (!["INCOME", "EXPENSE"].includes(type)) {
+            return res.status(400).json({ error: "Invalid type" })
         }
-        await User.updateOne({ _id: userId }, { $set: { status: status } })
-        return res.status(200).json({ message: "User status updated." })
-
-
+        await Finance.UpdateOne({ _id: recordId }, { $set: { type: type } })
+        return res.status(200).json({ success: "Record updated type successfully" })
+    } else if (category) {
+        await Finance.UpdateOne({ _id: recordId }, { $set: { category: category } })
+        return res.status(200).json({ success: "Record updated category successfully" })
+    } else if (description) {
+        await Finance.UpdateOne({ _id: recordId }, { $set: { description: description } })
+        return res.status(200).json({ success: "Record updated description successfully" })
     }
+
+
+
+
 
 
 
 }
 
 
-export const deleteUser = async (req, res) => {
-    const { userId } = req.params
 
 
-    const isUser = await User.findOne({ _id: userId })
+export const deleteRecord = async (req, res) => {
 
-    if (!isUser) {
-        return res.status(400).json({ error: "User not found" })
+
+    const { recordId } = req.params
+    const isRecord = await Finance.findOne({ _id: recordId })
+
+    if (!isRecord) {
+        return res.status(400).json({ error: "Record not Found" })
     }
 
-    await User.deleteOne({ _id: userId })
-    return res.status(200).json({ message: "User deleted." })
+    await Finance.deleteOne({ _id: recordId })
 
+
+    return res.status(200).json({ success: "Record deleted successfully" })
 }
 
 
 
+export const filterRecords = async (req, res) => {
 
+    const { type = undefined, category = undefined, startDate = undefined, endDate = undefined } = req.query
 
+    let filter = {}
+    if (type) {
+        filter.type = type
+    }
+    if (category) {
+        filter.category = category
+    }
+    if (startDate && endDate) {
+        filter.date = {
+            $gte: new Date(startDate),
+            $lte: new Date(endDate)
+        }
+    }
+    const records = await Finance.find({ filter })
 
-export const createRecord = (req, res) => {
-
-    res.status(200).json({ message: "Record is Created" })
+    return res.status(200).json({ records: records })
 }
