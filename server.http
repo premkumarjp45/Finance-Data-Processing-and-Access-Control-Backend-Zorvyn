@@ -1,0 +1,125 @@
+### 1. User and Role Management
+
+### API 1 User Registration
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",
+    "password":"premkumar45",
+    "role":"ADMIN"
+}
+
+
+
+
+### API 2 User Register Missing Name 
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    
+    "email":"premkumarjp45@gmail.com",
+    "password":"premkumar45",
+    "role":"ADMIN"
+}
+
+
+### API 3 User Register Missing Email
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",   
+    "password":"premkumar45",
+    "role":"ADMIN"
+}
+
+
+### API 4 User Register Missing Password
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",   
+    "role":"ADMIN"
+}
+
+### API 5 User Register Missing Role 
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",
+    "password":"premkumar45"
+}
+
+
+### API 6 User Register Invalid Role 
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",
+    "password":"premkumar45",
+    "role":"INVALIDROLE"
+}
+
+
+
+
+### API 7 User Register Weak Password 
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",
+    "password":"week",
+    "role":"ADMIN"
+}
+
+
+
+### API 8 User Register Invalid Email Format 
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+    "name":"Prem Kumar",
+    "email":"premkumarjp45ssscasgjfd",
+    "password":"premkakkkssk",
+    "role":"ADMIN"
+}
+
+
+
+
+### API 9 User Register User (Duplicate Email)
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+        "name":"Prem Kumar",
+    "email":"premkumarjp45@gmail.com",
+    "password":"premkumar45",
+    "role":"ADMIN"
+}
+
+
+
+
+
+### API 10 User Register User (Empty  Body)
+POST http://localhost:5000/api/user/register
+Content-Type:application/json
+
+{
+
+}
+
+
