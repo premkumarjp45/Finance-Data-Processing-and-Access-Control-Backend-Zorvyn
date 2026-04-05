@@ -11,7 +11,7 @@ const generateJwt = (payload) => {
 
 export const registerUsers = async (req, res) => {
 
-    const { name = undefined, email = undefined, password = undefined, role = undefined } = req.body
+    const { name = undefined, email = undefined, password = undefined, role = undefined, status = undefined } = req.body
 
 
 
@@ -47,10 +47,20 @@ export const registerUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid Role" })
     }
 
+    if (!status) {
+        return res.status(400).json({ error: "Status is required" })
+    }
+
+    const statusList = ["active", "inactive"]
+    if (statusList.includes(status)) {
+        return res.status(400).json({ error: "Invalid status" })
+    }
+
     if (password.length < 5) {
         return res.status(400).json({ error: "Password must be at least 6 characters" })
 
     }
+
 
     const isUser = await User.findOne({ email: email }) || null
 
@@ -66,7 +76,8 @@ export const registerUsers = async (req, res) => {
         name: name,
         email: email,
         password: hashedPassword,
-        role: role
+        role: role,
+        status: status
     })
 
     await createUser.save()
