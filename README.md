@@ -41,15 +41,18 @@ Tools
 
 Project Folder Structure
 
-Finance-Backend/
-├── config/
-├── models/
-├── controllers/
-├── middleware/
-├── routes/
-├── utils/
-├── server.js
-└── README.md
+
+---
+
+## 📌 Folder Details
+
+- **config/** → Contains database connection (MongoDB) and environment configs  
+- **models/** → Defines schema structures using Mongoose  
+- **controllers/** → Handles request/response logic  
+- **middleware/** → Includes authentication, authorization, error handling  
+- **routes/** → Defines API endpoints  
+- **utils/** → Common reusable functions  
+- **server.js** → Main file to start Express server  
 
 ---
 
