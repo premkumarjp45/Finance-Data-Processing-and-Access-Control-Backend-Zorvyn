@@ -683,54 +683,325 @@ Record not found
 
 ---
 
+
 ### API 14
 
-#### Path: `/api/finance/filter-records`
+#### Path: `/api/finance/record/:recordId`
 
-#### Method: `GET`
+#### Method: `PUT`
 
 #### Description:
 
-Filters financial records based on query parameters.
+Updates financial record fields based on provided input. Only Admin can update records.
 
 ---
 
-#### Scenario 1: Filter by Type
+### Scenario 1: No fields provided
+
+#### Request
 
 ```
-/api/finance/filter-records?type=INCOME
+{}
 ```
-
----
-
-#### Scenario 2: Filter by Category
-
-```
-/api/finance/filter-records?category=FOOD
-```
-
----
-
-#### Scenario 3: Filter by Date Range
-
-```
-/api/finance/filter-records?startDate=2026-04-01&endDate=2026-04-05
-```
-
----
 
 #### Response
 
 ```
-[
-  {
-    "id": "recordId",
-    "amount": 200,
-    "type": "EXPENSE",
-    "category": "FOOD",
-    "description": "Lunch"
-  }
-]
+Required fields missing
+```
+
+---
+
+### Scenario 2: Update all fields
+
+#### Request
+
+```
+{
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "SALARY",
+  "description": "Monthly salary"
+}
+```
+
+#### Response
+
+```
+Record updated amount,type,category and description successfully
+```
+
+---
+
+### Scenario 3: Invalid type (with all fields)
+
+#### Request
+
+```
+{
+  "amount": 5000,
+  "type": "INVALID",
+  "category": "SALARY",
+  "description": "Monthly salary"
+}
+```
+
+#### Response
+
+```
+Invalid type
+```
+
+---
+
+### Scenario 4: Update amount + type
+
+#### Request
+
+```
+{
+  "amount": 4000,
+  "type": "EXPENSE"
+}
+```
+
+#### Response
+
+```
+Record updated amount,type successfully
+```
+
+---
+
+### Scenario 5: Update amount + category
+
+#### Request
+
+```
+{
+  "amount": 3000,
+  "category": "FOOD"
+}
+```
+
+#### Response
+
+```
+Record updated amount,category successfully
+```
+
+---
+
+### Scenario 6: Update amount + description
+
+#### Request
+
+```
+{
+  "amount": 2000,
+  "description": "Lunch"
+}
+```
+
+#### Response
+
+```
+Record updated amount,description successfully
+```
+
+---
+
+### Scenario 7: Update type + category
+
+#### Request
+
+```
+{
+  "type": "EXPENSE",
+  "category": "TRAVEL"
+}
+```
+
+#### Response
+
+```
+Record updated type,category successfully
+```
+
+---
+
+### Scenario 8: Update type + description
+
+#### Request
+
+```
+{
+  "type": "INCOME",
+  "description": "Bonus"
+}
+```
+
+#### Response
+
+```
+Record updated type,description successfully
+```
+
+---
+
+### Scenario 9: Invalid type (partial update)
+
+#### Request
+
+```
+{
+  "type": "WRONG"
+}
+```
+
+#### Response
+
+```
+Invalid type
+```
+
+---
+
+### Scenario 10: Update category + description
+
+#### Request
+
+```
+{
+  "category": "FOOD",
+  "description": "Dinner"
+}
+```
+
+#### Response
+
+```
+Record updated category,description successfully
+```
+
+---
+
+### Scenario 11: Update only amount
+
+#### Request
+
+```
+{
+  "amount": 6000
+}
+```
+
+#### Response
+
+```
+Record updated amount successfully
+```
+
+---
+
+### Scenario 12: Update only type
+
+#### Request
+
+```
+{
+  "type": "INCOME"
+}
+```
+
+#### Response
+
+```
+Record updated type successfully
+```
+
+---
+
+### Scenario 13: Update only category
+
+#### Request
+
+```
+{
+  "category": "ENTERTAINMENT"
+}
+```
+
+#### Response
+
+```
+Record updated category successfully
+```
+
+---
+
+### Scenario 14: Update only description
+
+#### Request
+
+```
+{
+  "description": "Movie"
+}
+```
+
+#### Response
+
+```
+Record updated description successfully
+```
+
+---
+
+### Scenario 15: Record not found
+
+#### Description:
+
+If record does not exist for given ID
+
+#### Response
+
+```
+Record not Found
+```
+
+---
+
+### Scenario 16: Invalid record ID
+
+#### Description:
+
+If record ID format is invalid
+
+#### Response
+
+```
+Invalid record id
+```
+
+---
+
+### Scenario 17: Missing JWT Token
+
+#### Response
+
+```
+Missing JWT Token
+```
+
+---
+
+### Scenario 18: Non-Admin Access
+
+#### Response
+
+```
+Access denied. Admin only
 ```
 
 ---
@@ -738,14 +1009,15 @@ Filters financial records based on query parameters.
 # Summary
 
 ```
-Total APIs: 14+
-
-Features:
-- Create records
-- View records
-- Update records
-- Delete records
-- Filter records
-- Role-based access control
-- Input validation
+Total Update Scenarios: 18
+Covers:
+- Full update
+- Partial update combinations
+- Validation errors
+- Authorization errors
+- Edge cases
 ```
+
+
+
+
