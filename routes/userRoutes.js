@@ -1,5 +1,5 @@
 import express from "express"
-import { registerUsers, loginUsers } from "../middleware/userMiddleware.js"
+import { registerUsers, loginUsers } from "../controllers/userController.js"
 
 const userRouter = express.Router()
 

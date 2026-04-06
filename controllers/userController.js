@@ -1,13 +1,11 @@
 import bcrypt from "bcrypt"
 import validator from "validator"
-import jwt from "jsonwebtoken"
 import User from "../models/user.js"
+import { generateToken } from "../utils/generateToken.js"
 
 
 
-const generateJwt = (payload) => {
-    return jwt.sign(payload, process.env.JWT_SECRET)
-}
+
 
 export const registerUsers = async (req, res) => {
 
@@ -134,7 +132,7 @@ export const loginUsers = async (req, res) => {
         return res.status(400).json({ error: "Invalid credentials" })
     }
 
-    const jwtToken = generateJwt({ email: isUser.email, userId: isUser._id, role: isUser.role })
+    const jwtToken = generateToken({ email: isUser.email, userId: isUser._id, role: isUser.role })
 
     return res.status(200).json({
         "jwt_token": jwtToken

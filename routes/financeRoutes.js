@@ -1,6 +1,6 @@
 import express from "express"
-import { createFinanceRecord, getAllRecords, getSingleRecord, updateRecord, deleteRecord, filterRecords } from "../middleware/financeRecordsMiddleware.js"
-import { authAdmin, authViewer, authAdminAndAnalyst } from "../middleware/authAdmin.js"
+import { createFinanceRecord, getAllRecords, getSingleRecord, updateRecord, deleteRecord, filterRecords } from "../controllers/financeController.js"
+import { authAdmin, authViewer, authAdminAndAnalyst } from "../middleware/authMiddleware.js"
 const financeRouter = express.Router()
 
 

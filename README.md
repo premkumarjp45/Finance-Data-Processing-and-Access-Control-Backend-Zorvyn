@@ -1,3 +1,58 @@
+Finance Data Processing and Access Control Backend
+
+Base URL
+
+https://finance-data-processing-and-access-teal.vercel.app/
+
+---
+
+Project Overview
+
+This backend system manages financial records with role-based access control. It supports user authentication, CRUD operations, filtering, and dashboard analytics.
+
+---
+
+Technical Stack Used
+
+Backend
+
+- Node.js
+- Express.js
+
+Database
+
+- MongoDB
+- Mongoose
+
+Authentication & Security
+
+- JWT (JSON Web Token)
+- bcrypt
+
+Validation
+
+- Validator.js
+
+Tools
+
+- Postman / VS Code REST Client
+
+---
+
+Project Folder Structure
+
+Finance-Backend/
+├── config/
+├── models/
+├── controllers/
+├── middleware/
+├── routes/
+├── utils/
+├── server.js
+└── README.md
+
+---
+
 # 1. User and Role Management APIs
 
 ---
@@ -1021,3 +1076,140 @@ Covers:
 
 
 
+# 3. Dashboard Summary APIs
+
+---
+
+### API 1
+
+#### Path: `/api/dashboard/summary`
+
+#### Method: `GET`
+
+#### Description:
+
+Returns total income, total expense, and net balance for the logged-in user.
+
+---
+
+#### Response
+
+```
+{
+  "totalIncome": 13000,
+  "totalExpense": 4900,
+  "netBalance": 8100
+}
+```
+
+---
+
+#### Failure Scenarios
+
+```
+Missing JWT Token
+Invalid JWT Token
+Access denied
+```
+
+---
+
+---
+
+### API 2
+
+#### Path: `/api/dashboard/category`
+
+#### Method: `GET`
+
+#### Description:
+
+Returns total amount grouped by category for the logged-in user.
+
+---
+
+#### Response
+
+```
+[
+  {
+    "category": "FOOD",
+    "total": 1200
+  },
+  {
+    "category": "SALARY",
+    "total": 11000
+  }
+]
+```
+
+---
+
+#### Failure Scenarios
+
+```
+Missing JWT Token
+Invalid JWT Token
+Access denied
+```
+
+---
+
+---
+
+### API 3
+
+#### Path: `/api/dashboard/trends`
+
+#### Method: `GET`
+
+#### Description:
+
+Returns monthly income and expense trends for the logged-in user.
+
+---
+
+#### Response
+
+```
+[
+  {
+    "_id": { "year": 2026, "month": 4 },
+    "totalIncome": 5000,
+    "totalExpense": 2000
+  },
+  {
+    "_id": { "year": 2026, "month": 3 },
+    "totalIncome": 8000,
+    "totalExpense": 2900
+  }
+]
+```
+
+---
+
+#### Failure Scenarios
+
+```
+Missing JWT Token
+Invalid JWT Token
+Access denied
+Invalid date format
+```
+
+---
+
+# Summary
+
+```
+Total APIs: 3
+Includes:
+- Summary API
+- Category API
+- Trends API
+
+Covers:
+- Aggregation
+- Grouping
+- Financial insights
+```
